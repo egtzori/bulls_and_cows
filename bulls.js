@@ -41,9 +41,23 @@ const match_cows_on_different_pos = (combo1, combo2) => {
   return result.reduce( (a, c) => a += +!!c, 0);
 }
 
+// return number - matching symbols in combo2 in same position as combo1
+const match_bulls = (combo1, combo2) => {
+  const result = combo2
+    .split('')
+    .map( (c, i, a) =>  (i === combo1.indexOf(c) && combo1.includes(c)) ? c : null)
+  return result.reduce( (a, c) => a += +!!c, 0);
+}
+
 // check if combo is possible (will satisfy given result)
 const possible = (secret, result, combo, newcombo) => {
   const result2 = get_result(secret, newcombo)
+
+  // one or more Bulls
+  if (0 < result[0]) {
+    const test =  match_bulls(newcombo, combo);
+    if (test !== result[0]) return false;
+  }
 
   // one or more Cows - combo must match Cows number of digits but on different position
   if (0 < result[1]) {
