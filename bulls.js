@@ -5,6 +5,8 @@ function generate_combos() {
     if (i<=1000) continue; // discard <1000
     var s = ('000'+i).slice(-4);
 
+    if (s.includes('0')) continue; // remove zeroes
+
     // remove dup digits
     var sorted = s.split('').sort();
     if (sorted[0] === sorted[1]
