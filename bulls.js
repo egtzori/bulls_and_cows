@@ -1,10 +1,8 @@
 
 function generate_combos() {
   var combos = [];
-  for (i=0; i<10000; i++) {
-    if (i<=1000) continue; // discard <1000
-    var s = ('000'+i).slice(-4);
-
+  for (i=1234; i<10000; i++) {
+    var s = String(i)
     if (s.includes('0')) continue; // remove zeroes
 
     // remove dup digits
@@ -36,7 +34,7 @@ function get_result(secret, combo) {
 }
 
 // returns number - matching symbols in combo2 from combo1 which are on diffrerent positions
-const match_cows_on_different_pos = (combo1, combo2) => {
+function match_cows_on_different_pos(combo1, combo2) {
   const result = combo2
     .split('')
     .map( (c, i, a) =>  (i !== combo1.indexOf(c) && combo1.includes(c)) ? c : null)
@@ -44,7 +42,7 @@ const match_cows_on_different_pos = (combo1, combo2) => {
 }
 
 // return number - matching symbols in combo2 in same position as combo1
-const match_bulls = (combo1, combo2) => {
+function match_bulls(combo1, combo2) {
   const result = combo2
     .split('')
     .map( (c, i, a) =>  (i === combo1.indexOf(c) && combo1.includes(c)) ? c : null)
@@ -52,7 +50,7 @@ const match_bulls = (combo1, combo2) => {
 }
 
 // check if combo is possible (will satisfy given result)
-const possible = (secret, result, combo, newcombo) => {
+function possible(secret, result, combo, newcombo) {
   const result2 = get_result(secret, newcombo)
 
   // one or more Bulls
@@ -64,7 +62,6 @@ const possible = (secret, result, combo, newcombo) => {
   // one or more Cows - combo must match Cows number of digits but on different position
   if (0 < result[1]) {
     const test =  match_cows_on_different_pos(newcombo, combo);
-    // console.log("!!!", result, combo, newcombo, test);
     return match_cows_on_different_pos(newcombo, combo) === result[1];
   }
 
@@ -93,5 +90,3 @@ for (var i=1; i<1000; i++) {
 }
 
 console.log("could not solve in %s steps", i);
-
-// check [0, 4] responses -- can filter out more
