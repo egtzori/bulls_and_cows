@@ -45,7 +45,7 @@ function match_cows_on_different_pos(combo1, combo2) {
 function match_bulls(combo1, combo2) {
   const result = combo2
     .split('')
-    .map( (c, i, a) =>  (i === combo1.indexOf(c) && combo1.includes(c)) ? c : null)
+    .map( (c, i, a) =>  (i === combo1.indexOf(c)) ? c : null)
   return result.reduce( (a, c) => a += +!!c, 0);
 }
 
