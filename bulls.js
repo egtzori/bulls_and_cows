@@ -70,13 +70,11 @@ function possible(secret, result, combo, newcombo) {
 
 const solved = (result) => result[0] === 4;
 
-
-console.time("generate_combos");
+const start = Date.now();
 var combos = generate_combos()
-console.timeEnd("generate_combos");
-console.log("%s combos", combos.length);
+console.log("generated %s combos in %sms", combos.length, Date.now() - start);
 
-const secret = array_random(combos);
+const secret = array_random(combos); // value to guess
 
 for (var i=1; i<1000; i++) {
   var combo = array_random(combos);
@@ -84,7 +82,8 @@ for (var i=1; i<1000; i++) {
   const done = solved(result);
   console.log("[%s combos] %s <-> %s, %s", combos.length, secret, combo, result);
   if (done) {
-    return console.log("solved in %s steps: ", i, secret, combo);
+    const elapsed = Date.now() - start;
+    return console.log("solved in %s steps (%sms): %s %s ", i, elapsed, secret, combo);
   }
   combos = combos.filter(c => possible(secret, result, combo, c));
 }
