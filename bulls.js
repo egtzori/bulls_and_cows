@@ -80,7 +80,7 @@ for (var i=1; i<1000; i++) {
   var combo = array_random(combos);
   var result = get_result(secret, combo);
   const done = solved(result);
-  console.log("[%s combos] %s <-> %s, %s", combos.length, secret, combo, result);
+  console.log("[%s combos] %s <-> %s, %s", ('   '+combos.length).slice(-4), secret, combo, result);
   if (done) {
     const elapsed = Date.now() - start;
     return console.log("solved in %s steps (%sms): %s %s ", i, elapsed, secret, combo);
